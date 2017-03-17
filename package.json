@@ -27,5 +27,8 @@
   "bugs": {
     "url": "https://github.com/iamstuartwilson/ride-n-fight/issues"
   },
-  "homepage": "https://github.com/iamstuartwilson/ride-n-fight#readme"
+  "homepage": "https://github.com/iamstuartwilson/ride-n-fight#readme",
+  "engines": {
+    "node": "6.0.0"
+  }
 }

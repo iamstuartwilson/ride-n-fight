@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
   res.render('routes/index', {
     strava: {
       authUrl: stravaApi.getAuthUrl({
-        redirect_uri: `${ENV.APP_BASE_URL}/token`,
+        redirect_uri: `${ENV.BASE_URL}/token`,
       }),
     },
   });
@@ -56,4 +56,4 @@ app.get('/profile/:id', (req, res) => {
   res.send('Not found...');
 });
 
-app.listen(ENV.APP_PORT, () => console.log(`App running on port ${ENV.APP_PORT}`));
+app.listen(ENV.PORT, () => console.log(`App running on port ${ENV.PORT}`));

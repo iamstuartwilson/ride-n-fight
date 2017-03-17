@@ -4,7 +4,7 @@
   "description": "Fight your friends and become champion",
   "main": "index.js",
   "dependencies": {
-    "bikedujour-strava-api": "^0.0.1",
+    "bikedujour-strava-api": "github:bikedujour/strava-api",
     "dotenv": "^4.0.0",
     "express": "^4.15.2",
     "express-react": "^1.0.2",

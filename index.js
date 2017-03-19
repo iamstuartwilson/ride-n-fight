@@ -1,12 +1,18 @@
 // Environment config
 require('dotenv').config();
-const ENV = process.env;
 
 // App deps
 const path = require('path');
 const express = require('express');
-const stravaClient = require('bikedujour-strava-api');
+
+// Controllers
+const indexController = require('./controllers/index');
+const authController = require('./controllers/auth');
+const profileController = require('./controllers/profile');
+
+// Lib modules
 const Store = require('./lib/store');
+const stravaApi = require('./lib/strava-api');
 const validateActivity = require('./lib/validate-activity');
 const compareSegments = require('./lib/compare-segments');
 
@@ -14,11 +20,6 @@ const compareSegments = require('./lib/compare-segments');
 const app = express();
 // Get user store
 const users = new Store('users', []);
-// Setup strava client
-const stravaApi = stravaClient({
-  client_id: ENV.STRAVA_CLIENT_ID,
-  client_secret: ENV.STRAVA_CLIENT_SECRET,
-});
 
 // Setup react views
 app.set('views', path.join(__dirname, '/views'));
@@ -26,58 +27,13 @@ app.set('view engine', 'jsx');
 app.engine('jsx', require('express-react-views').createEngine());
 
 // Homepage
-app.get('/', (req, res) => {
-  res.render('routes/index', {
-    strava: {
-      authUrl: stravaApi.getAuthUrl({
-        redirect_uri: `${ENV.BASE_URL}/token`,
-      }),
-    },
-  });
-});
+app.get('/', indexController);
 
 // Token exchange route
-app.get('/token', (req, res, next) => {
-  stravaApi.tokenExchange(req.query.code, (err, data) => {
-    const existingUser = users.get().find((user) => {
-      return user.athlete.id == data.athlete.id;
-    }).value();
+app.get('/auth', authController);
 
-    if (!existingUser) {
-      users.get().push(data).write();
-    }
-
-    return res.redirect(`/profile/${data.athlete.id}`);
-  });
-});
-
-app.get('/profile/:uid', (req, res) => {
-  const existingUser = users.get().find((user) => {
-    return user.athlete.id == req.params.uid;
-  }).value();
-
-  if (!existingUser) {
-    return res.send('Not found...');
-  }
-
-  stravaApi.setCredential('access_token', existingUser.access_token);
-
-  stravaApi.get('athlete/activities', (err, data) => {
-    const rides = data.filter((activity) => {
-      return activity.type === 'Ride'
-             && activity.athlete_count > 1;
-    });
-
-    rides.map((ride) => {
-      ride.url = path.join(req.originalUrl, `/ride/${ride.id}`);
-    });
-
-    res.render('routes/profile', {
-      user: existingUser,
-      rides: rides,
-    });
-  });
-});
+// Profile page
+app.get('/profile/:uid', profileController);
 
 // This is a mess.  Don't code when severly hungover...
 // Exchnging tokens and shiz, this should be a controller
@@ -143,4 +99,31 @@ app.get('/profile/:uid/ride/:rid', (req, res) => {
   });
 });
 
-app.listen(ENV.PORT, () => console.log(`App running on port ${ENV.PORT}`));
+// 404s
+app.use((req, res, next) => {
+  res.status(404);
+
+  if (req.xhr || req.accepts('application/json')) {
+    return res.send({
+      error_code: 404
+    });
+  }
+
+  res.render('routes/404');
+});
+
+// 500 errors
+app.use((err, req, res, next) => {
+  res.status(500);
+
+  if (req.xhr || req.accepts('application/json')) {
+    return res.send({
+      error_code: 500,
+      error: err,
+    });
+  }
+
+  res.render('routes/500');
+});
+
+app.listen(process.env.PORT, () => console.log(`App running on port ${process.env.PORT}`));

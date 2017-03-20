@@ -9,6 +9,7 @@ const express = require('express');
 const indexController = require('./controllers/index');
 const authController = require('./controllers/auth');
 const profileController = require('./controllers/profile');
+const profileRidesController = require('./controllers/profile-rides');
 
 // Lib modules
 const Store = require('./lib/store');
@@ -34,6 +35,9 @@ app.get('/auth', authController);
 
 // Profile page
 app.get('/profile/:uid', profileController);
+
+// Profile rides
+app.get('/profile/:uid/rides', profileRidesController);
 
 // This is a mess.  Don't code when severly hungover...
 // Exchnging tokens and shiz, this should be a controller

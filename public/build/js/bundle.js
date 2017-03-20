@@ -93,19 +93,22 @@ var Profile = function (_React$Component) {
           this.state.athlete.firstname
         ),
         _react2.default.createElement('img', { src: this.state.athlete.profile, alt: this.state.athlete.firstname }),
+        _react2.default.createElement(
+          'h2',
+          null,
+          'Rides: (',
+          this.state.groupActivities.length,
+          ')'
+        ),
         this.state.groupActivities.map(function (ride) {
           return _react2.default.createElement(
             'div',
             null,
             _react2.default.createElement(
-              'h2',
-              null,
-              ride.master.name
-            ),
-            _react2.default.createElement(
               'h3',
               null,
-              'With:'
+              ride.master.name,
+              ' With:'
             ),
             _react2.default.createElement(
               'ul',

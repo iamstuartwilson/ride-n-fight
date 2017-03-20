@@ -30,10 +30,10 @@ class Profile extends React.Component {
         <h1>{this.state.athlete.firstname}</h1>
         <img src={this.state.athlete.profile} alt={this.state.athlete.firstname} />
 
+        <h2>Rides: ({this.state.groupActivities.length})</h2>
         {this.state.groupActivities.map((ride) =>
           <div>
-            <h2>{ride.master.name}</h2>
-            <h3>With:</h3>
+            <h3>{ride.master.name} With:</h3>
             <ul>
               {ride.friends.map((friend) =>
                 <li>{friend.athlete.firstname}</li>

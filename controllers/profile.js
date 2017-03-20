@@ -13,7 +13,7 @@ module.exports = function profileRidesController (req, res, next) {
     return next();
   }
 
-  res.send({
+  res.render('routes/profile', {
     user,
-  })
+  });
 }

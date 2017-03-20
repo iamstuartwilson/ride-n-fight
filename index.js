@@ -23,9 +23,11 @@ const app = express();
 const users = new Store('users', []);
 
 // Setup react views
-app.set('views', path.join(__dirname, '/views'));
+app.set('views', path.join(__dirname, '/templates'));
 app.set('view engine', 'jsx');
 app.engine('jsx', require('express-react-views').createEngine());
+
+app.use(express.static('public'));
 
 // Homepage
 app.get('/', indexController);

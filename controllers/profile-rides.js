@@ -4,7 +4,7 @@ const stravaApi = require('../lib/strava-api');
 const users = require('../lib/users');
 const validateActivity = require('../lib/validate-activity');
 
-const activityCount = 50;
+const activityCount = 99;
 
 module.exports = function authController (req, res, next) {
   const user = users.get().find((user) => {

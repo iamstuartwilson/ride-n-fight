@@ -5,13 +5,13 @@ class RouteIndex extends React.Component {
   render() {
     return (
       <Layout head={{}}>
-        <div className="container">
-          <div className="row">
-            <div className="col-xs-12 text-center">
-              <a href={this.props.strava.authUrl}>Connect with Strava</a>
-            </div>
+        <section className="rnf-hero">
+          <div className="container">
+            <h1>KO your friends!</h1>
+            <br />
+            <a href={this.props.strava.authUrl} className="rnf-button rnf-button--strava">Connect with Strava</a>
           </div>
-        </div>
+        </section>
       </Layout>
     );
   }

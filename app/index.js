@@ -8,7 +8,7 @@ import {
 } from 'react-router-dom';
 
 // Pages
-import Profile from './profile';
+import Profile from './components/profile';
 
 // Super contrived
 ReactDOM.render(

@@ -41,3 +41,9 @@ jspm_packages
 # Keep things private.  Yes sir
 .env
 /store/**/*.json
+
+# No need for built files
+/public/js/**/*.js
+/public/js/**/*.js.map
+/public/css/**/*.css
+/public/css/**/*.css.map

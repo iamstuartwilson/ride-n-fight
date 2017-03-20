@@ -1,0 +1,22 @@
+// Colours
+$colour-grey-darkest: #222;
+$colour-grey-dark: #666;
+$colour-grey: #999;
+$colour-grey-light: #ccc;
+$colour-grey-lightest: #eee;
+
+$colour-theme-teal: #23d69e;
+
+// Brand colours
+$colour-brand-strava: #fc4c02;
+
+// Fonts
+$font-size: 18px;
+$font-family: 'Courier New', Courier, monospace;
+$font-colour: $colour-grey-darkest;
+
+// Dimensions
+$dimension-padding: 1rem;
+$dimension-padding-lg: ($dimension-padding * 2);
+$dimension-padding-xl: ($dimension-padding * 4);
+$dimension-padding-xxl: ($dimension-padding * 6);

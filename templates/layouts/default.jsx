@@ -10,16 +10,16 @@ class LayoutDefault extends React.Component {
           {this.props.head.title ? `${this.props.head.title} | ` : ''}
           Ride-n-Fight
         </title>
-        <link rel="stylesheet" type="text/css" href="/build/css/styles.css" />
+        <link rel="stylesheet" type="text/css" href="/css/styles.css" />
       </head>
       <body>
-        <header>
-          <nav>
-            <a href="/">Ride-n-Fight</a>
+        <header className="rnf-header">
+          <nav className="container">
+            <a href="/" className="rnf-header__logo">Ride-n-Fight</a>
           </nav>
         </header>
         {this.props.children}
-        <script type="text/javascript" src="/build/js/bundle.js"></script>
+        <script type="text/javascript" src="/js/bundle.min.js"></script>
       </body>
       </html>
     );

@@ -1,0 +1,28 @@
+.rnf-button {
+  display: inline-block;
+  padding: 1em 2em;
+  border: 0;
+  background-color: $colour-theme-teal;
+  background-image: linear-gradient(46deg, transparent 50%, rgba(white, 0.125) 50%);
+  color: white;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  outline: 0;
+
+  &--strava {
+    background-color: $colour-brand-strava;
+  }
+
+  &:hover,
+  &:focus {
+    background-image: none;
+  }
+
+  &:active {
+    background-image: linear-gradient(46deg, rgba(black, 0.125) 50%, rgba(black, 0.125) 50%);
+  }
+}

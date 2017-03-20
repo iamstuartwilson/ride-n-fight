@@ -1,0 +1,13 @@
+.rnf-header {
+  background-color: #222;
+
+  &__logo {
+    display: inline-block;
+    padding: $dimension-padding 0;
+    color: white;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: .2em;
+    font-weight: bold;
+  }
+}

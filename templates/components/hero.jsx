@@ -1,4 +1,4 @@
-import React from 'react';
+const React = require('react');
 
 class Hero extends React.Component {
   render() {
@@ -10,4 +10,4 @@ class Hero extends React.Component {
   }
 }
 
-export default Hero;
+module.exports = Hero;

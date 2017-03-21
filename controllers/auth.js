@@ -16,6 +16,6 @@ module.exports = function authController (req, res) {
       users.get().push(data).write();
     }
 
-    return res.redirect(url.resolve('/profile/', `${data.athlete.id}`));
+    return res.redirect(url.resolve('/user/', `${data.athlete.id}`));
   });
 }

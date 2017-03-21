@@ -13,11 +13,6 @@ class LayoutDefault extends React.Component {
         <link rel="stylesheet" type="text/css" href="/css/styles.css" />
       </head>
       <body>
-        <header className="rnf-header">
-          <nav className="container">
-            <a href="/" className="rnf-header__logo">Ride-n-Fight</a>
-          </nav>
-        </header>
         {this.props.children}
         <script type="text/javascript" src="/js/bundle.js"></script>
       </body>

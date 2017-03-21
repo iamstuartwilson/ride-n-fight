@@ -1,10 +1,13 @@
 import React from 'react';
-import 'whatwg-fetch';
-import Link from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Link,
+} from 'react-router-dom';
+import Hero from '../../../templates/components/hero.jsx';
 
-import Hero from './hero';
+import stravaApi from '../../lib/strava-api';
 
-class Profile extends React.Component {
+class User extends React.Component {
   constructor() {
     super();
 
@@ -14,16 +17,24 @@ class Profile extends React.Component {
     };
   }
 
-  componentDidMount() {
-    this.userId = this.props.match.params.id;
+  componentWillReceiveProps(props) {
+    console.log(props);
+    this.setUser(props.match.params.id);
+  }
 
-    fetch(`/profile/${this.userId}/rides`).then((res) => {
-      return res.json();
-    }).then((json) => {
-      this.setState({
-        athlete: json.user.athlete,
-        groupActivities: json.groupActivities,
-      });
+  componentDidMount() {
+    this.setUser(this.props.match.params.id);
+  }
+
+  setUser(userId) {
+    stravaApi.get(`/user/${userId}`).then((json) => {
+      this.state.athlete = json.user.athlete;
+      this.setState(this.state);
+    });
+
+    stravaApi.get(`/user/${userId}/rides`).then((json) => {
+      this.state.groupActivities = json.groupActivities;
+      this.setState(this.state);
     });
   }
 
@@ -35,7 +46,6 @@ class Profile extends React.Component {
             <img src={this.state.athlete.profile} alt={this.state.athlete.firstname} className="rnf-badge" />
             <h1>{this.state.athlete.firstname} {this.state.athlete.lastname}</h1>
             <p>{this.state.athlete.city}, {this.state.athlete.country}</p>
-            <Link to="profile" params={{id: 123}}>Boom</Link>
           </div>
         </Hero>
 
@@ -45,7 +55,7 @@ class Profile extends React.Component {
             <div>
               <h3>{ride.master.name}</h3>
               {ride.friends.map((friend) =>
-                <Link to="profile" params={{id: friend.athlete.id}}>
+                <Link to={`/user/${friend.athlete.id}`}>
                   <img src={friend.athlete.profile_medium} alt={friend.athlete.firstname} className="rnf-badge rnf-badge--sm" />
                 </Link>
               )}
@@ -57,4 +67,4 @@ class Profile extends React.Component {
   }
 }
 
-export default Profile;
+export default User;

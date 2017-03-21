@@ -8,8 +8,9 @@ const express = require('express');
 // Controllers
 const indexController = require('./controllers/index');
 const authController = require('./controllers/auth');
-const profileController = require('./controllers/profile');
-const profileRidesController = require('./controllers/profile-rides');
+const userController = require('./controllers/user');
+const userRidesController = require('./controllers/user-rides');
+const reactController = require('./controllers/react');
 
 // Lib modules
 const Store = require('./lib/store');
@@ -32,14 +33,17 @@ app.use(express.static('public'));
 // Homepage
 app.get('/', indexController);
 
+// Profile API
+app.get('/api/user/:uid', userController);
+
+// Profile rides API
+app.get('/api/user/:uid/rides', userRidesController);
+
 // Token exchange route
 app.get('/auth', authController);
 
-// Profile page
-app.get('/profile/:uid', profileController);
-
-// Profile rides
-app.get('/profile/:uid/rides', profileRidesController);
+// App
+app.get('/*', reactController);
 
 // This is a mess.  Don't code when severly hungover...
 // Exchnging tokens and shiz, this should be a controller

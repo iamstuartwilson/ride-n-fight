@@ -6,13 +6,19 @@ const validateActivity = require('../lib/validate-activity');
 
 const activityCount = 99;
 
-module.exports = function authController (req, res, next) {
+const cache = {};
+
+module.exports = function userRides (req, res, next) {
   const user = users.get().find((user) => {
     return user.athlete.id == req.params.uid;
   }).value();
 
   if (!user) {
     return next();
+  }
+
+  if (req.params.uid in cache) {
+    return res.send(cache[req.params.uid]);
   }
 
   stravaApi.setCredential('access_token', user.access_token);
@@ -51,10 +57,12 @@ module.exports = function authController (req, res, next) {
             return -1;
           });
 
-          res.send({
+          cache[req.params.uid] = {
             user,
             groupActivities
-          });
+          };
+
+          res.send(cache[req.params.uid]);
         }
       });
     });

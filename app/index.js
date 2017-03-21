@@ -8,12 +8,16 @@ import {
 } from 'react-router-dom';
 
 // Pages
-import Profile from './components/profile';
+import User from './templates/routes/user';
 
-// Super contrived
+const Fight = ({match}) => <Hero>Fighting: {match.params.id}</Hero>
+
 ReactDOM.render(
   <Router>
-    <Route name="profile" path="/profile/:id" component={Profile} />
+    <div>
+      <Route path="/user/:id" exact component={User} />
+      <Route path="/user/:id/fight" exact component={Fight} />
+    </div>
   </Router>,
   document.querySelector('[data-react-root]')
 );

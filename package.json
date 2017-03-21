@@ -4,6 +4,7 @@
   "description": "Fight your friends and become champion",
   "main": "index.js",
   "dependencies": {
+    "autoprefixer": "^6.7.7",
     "babel": "^6.23.0",
     "babel-preset-es2015": "^6.24.0",
     "babel-preset-react": "^6.23.0",
@@ -17,7 +18,9 @@
     "jsx-transform": "^2.3.0",
     "lowdb": "^0.16.0",
     "moment": "^2.18.0",
+    "node-sass": "^4.5.0",
     "normalize.scss": "^0.1.0",
+    "postcss-cli": "^3.0.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-router-dom": "^4.0.0",

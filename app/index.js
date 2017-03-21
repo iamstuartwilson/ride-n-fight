@@ -13,7 +13,7 @@ import Profile from './components/profile';
 // Super contrived
 ReactDOM.render(
   <Router>
-    <Route path="/profile/:id" component={Profile} />
+    <Route name="profile" path="/profile/:id" component={Profile} />
   </Router>,
   document.querySelector('[data-react-root]')
 );

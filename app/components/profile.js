@@ -1,5 +1,6 @@
 import React from 'react';
 import 'whatwg-fetch';
+import Link from 'react-router-dom';
 
 import Hero from './hero';
 
@@ -34,6 +35,7 @@ class Profile extends React.Component {
             <img src={this.state.athlete.profile} alt={this.state.athlete.firstname} className="rnf-badge" />
             <h1>{this.state.athlete.firstname} {this.state.athlete.lastname}</h1>
             <p>{this.state.athlete.city}, {this.state.athlete.country}</p>
+            <Link to="profile" params={{id: 123}}>Boom</Link>
           </div>
         </Hero>
 
@@ -43,10 +45,9 @@ class Profile extends React.Component {
             <div>
               <h3>{ride.master.name}</h3>
               {ride.friends.map((friend) =>
-                <p>
+                <Link to="profile" params={{id: friend.athlete.id}}>
                   <img src={friend.athlete.profile_medium} alt={friend.athlete.firstname} className="rnf-badge rnf-badge--sm" />
-                  {friend.athlete.firstname}
-                </p>
+                </Link>
               )}
             </div>
           )}

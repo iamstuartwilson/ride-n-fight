@@ -19,7 +19,7 @@ class LayoutDefault extends React.Component {
           </nav>
         </header>
         {this.props.children}
-        <script type="text/javascript" src="/js/bundle.min.js"></script>
+        <script type="text/javascript" src="/js/bundle.js"></script>
       </body>
       </html>
     );

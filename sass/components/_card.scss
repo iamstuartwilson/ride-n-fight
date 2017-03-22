@@ -1,0 +1,9 @@
+.rnf-card {
+  margin: $dimension-padding;
+  border: solid $colour-grey 1px;
+  box-shadow: 2px 2px $colour-grey-light;
+
+  &__inner {
+    padding: $dimension-padding;
+  }
+}

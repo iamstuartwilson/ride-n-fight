@@ -3,7 +3,9 @@ import {
   BrowserRouter as Router,
   Link,
 } from 'react-router-dom';
+
 import Hero from '../../../templates/components/hero.jsx';
+import Card from '../../../templates/components/card.jsx';
 
 import stravaApi from '../../lib/strava-api';
 
@@ -51,16 +53,18 @@ class User extends React.Component {
 
         <div className="container">
           <h2>Rides: ({this.state.groupActivities.length})</h2>
-          {this.state.groupActivities.map((ride) =>
-            <div>
-              <h3>{ride.master.name}</h3>
-              {ride.friends.map((friend) =>
-                <Link to={`/user/${friend.athlete.id}`}>
-                  <img src={friend.athlete.profile_medium} alt={friend.athlete.firstname} className="rnf-badge rnf-badge--sm" />
-                </Link>
-              )}
-            </div>
-          )}
+          <div className="grid">
+            {this.state.groupActivities.map((ride) =>
+              <Card>
+                <h3>{ride.master.name}</h3>
+                {ride.friends.map((friend) =>
+                  <Link to={`/user/${friend.athlete.id}`}>
+                    <img src={friend.athlete.profile_medium} alt={friend.athlete.firstname} className="rnf-badge rnf-badge--sm" />
+                  </Link>
+                )}
+              </Card>
+            )}
+          </div>
         </div>
       </div>
     );

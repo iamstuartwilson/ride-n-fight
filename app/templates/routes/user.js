@@ -8,6 +8,7 @@ import Hero from '../../../templates/components/hero.jsx';
 import Card from '../../../templates/components/card.jsx';
 
 import stravaApi from '../../lib/strava-api';
+import polylineToPath from '../../lib/polyline-to-path';
 
 class User extends React.Component {
   constructor() {
@@ -35,7 +36,12 @@ class User extends React.Component {
     });
 
     stravaApi.get(`/user/${userId}/rides`).then((json) => {
-      this.state.groupActivities = json.groupActivities;
+      this.state.groupActivities = json.groupActivities.map((ride) => {
+        ride.svg = polylineToPath(ride.master.map.summary_polyline);
+
+        return ride;
+      });
+
       this.setState(this.state);
     });
   }
@@ -57,6 +63,7 @@ class User extends React.Component {
             {this.state.groupActivities.map((ride) =>
               <Card>
                 <h3>{ride.master.name}</h3>
+                <svg id="svg" height="400" width="400" preserveAspectRatio="xMinYMin meet" viewBox={ride.svg.viewBox}><g><path d={ride.svg.path}></path></g></svg>
                 {ride.friends.map((friend) =>
                   <Link to={`/user/${friend.athlete.id}`}>
                     <img src={friend.athlete.profile_medium} alt={friend.athlete.firstname} className="rnf-badge rnf-badge--sm" />

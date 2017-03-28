@@ -1,12 +1,16 @@
 const url = require('url');
 const moment = require('moment');
+const NodeCache = require('node-cache');
 const stravaApi = require('../lib/strava-api');
 const users = require('../lib/users');
 const validateActivity = require('../lib/validate-activity');
 
-const activityCount = 99;
+const activityCount = 50;
 
-const cache = {};
+// Flush cache every 2 hours day
+const cache = new NodeCache({
+  stdTTL: 60 * 60 * 2,
+});
 
 module.exports = function userRides (req, res, next) {
   const user = users.get().find((user) => {
@@ -17,8 +21,10 @@ module.exports = function userRides (req, res, next) {
     return next();
   }
 
-  if (req.params.uid in cache) {
-    return res.send(cache[req.params.uid]);
+  const cachedData = cache.get(req.params.uid);
+
+  if (cachedData && ! req.query.refresh) {
+    return res.send(cachedData);
   }
 
   stravaApi.setCredential('access_token', user.access_token);
@@ -30,8 +36,10 @@ module.exports = function userRides (req, res, next) {
 
     const validActivities = activities.filter(validateActivity);
     const groupActivities = [];
+    // Will use this to check we have found related activites for each valid master
+    let completedRequests = 0;
 
-    validActivities.forEach((validActivity, i) => {
+    validActivities.forEach((validActivity) => {
       stravaApi.get(`activities/${validActivity.id}/related`, (err, relatedActivities) => {
         if (err) {
           return next(err);
@@ -48,7 +56,9 @@ module.exports = function userRides (req, res, next) {
           });
         }
 
-        if (i === validActivities.length - 1) {
+        completedRequests ++;
+
+        if (completedRequests === validActivities.length) {
           groupActivities.sort((activityA, activityB) => {
             if (moment(activityA.master.start_date).isBefore(moment(activityB.master.start_date))) {
               return 1;
@@ -57,12 +67,12 @@ module.exports = function userRides (req, res, next) {
             return -1;
           });
 
-          cache[req.params.uid] = {
+          cache.set(req.params.uid, {
             user,
             groupActivities
-          };
+          });
 
-          res.send(cache[req.params.uid]);
+          res.send(cache.get(req.params.uid));
         }
       });
     });

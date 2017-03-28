@@ -12,7 +12,7 @@ const cache = new NodeCache({
   stdTTL: 60 * 60 * 2,
 });
 
-module.exports = function userRides (req, res, next) {
+module.exports = function userRidesController (req, res, next) {
   const user = users.get().find((user) => {
     return user.athlete.id == req.params.uid;
   }).value();
@@ -45,8 +45,16 @@ module.exports = function userRides (req, res, next) {
           return next(err);
         }
 
+        relatedActivities.map((relatedActivity) => {
+          relatedActivity.user = users.get().find((user) => {
+            return user.athlete.id == relatedActivity.athlete.id;
+          }).value();
+
+          return relatedActivity;
+        })
+
         let friendActivities = relatedActivities.filter((relatedActivity) => {
-          return relatedActivity.athlete.friend;
+          return relatedActivity.user;
         });
 
         if (friendActivities.length) {

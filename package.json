@@ -25,6 +25,7 @@
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-router-dom": "^4.0.0",
+    "reflex-grid": "^1.5.0",
     "request": "^2.81.0",
     "uglify-js": "^2.8.14",
     "uglifyify": "^3.0.4",

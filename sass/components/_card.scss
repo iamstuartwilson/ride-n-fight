@@ -1,9 +1,18 @@
 .rnf-card {
-  margin: $dimension-padding;
+  height: 100%;
   border: solid $colour-grey 1px;
   box-shadow: 2px 2px $colour-grey-light;
 
   &__inner {
     padding: $dimension-padding;
+
+    > :first-child {
+      margin-top: 0;
+    }
+
+    > :last-child {
+      margin-bottom: 0;
+    }
   }
 }
+

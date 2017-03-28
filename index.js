@@ -10,6 +10,7 @@ const indexController = require('./controllers/index');
 const authController = require('./controllers/auth');
 const userController = require('./controllers/user');
 const userRidesController = require('./controllers/user-rides');
+const fightController = require('./controllers/fight');
 const reactController = require('./controllers/react');
 
 // Lib modules
@@ -38,6 +39,9 @@ app.get('/api/user/:uid', userController);
 
 // Profile rides API
 app.get('/api/user/:uid/rides', userRidesController);
+
+// Fight fight fight!
+app.get('/api/user/:uid/fight/:fid', fightController);
 
 // Token exchange route
 app.get('/auth', authController);

@@ -13,16 +13,29 @@
   text-decoration: none;
   outline: 0;
 
-  &--strava {
-    background-color: $colour-brand-strava;
+  &--full-width {
+    display: block;
   }
 
   &:hover,
-  &:focus {
+  &:focus,
+  &:active {
+    color: white;
+    background-color: $colour-theme-teal;
     background-image: none;
   }
 
   &:active {
     background-image: linear-gradient(46deg, rgba(black, 0.125) 50%, rgba(black, 0.125) 50%);
+  }
+
+  &--strava {
+    background-color: $colour-brand-strava;
+
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: $colour-brand-strava;
+    }
   }
 }

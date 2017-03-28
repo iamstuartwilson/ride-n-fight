@@ -1,14 +1,8 @@
+@import 'reflex-grid/scss/reflex';
+
 .container {
   width: 100%;
   max-width: 1200px;
   margin: auto;
   padding: 0 $dimension-padding;
-}
-
-.grid {
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin: -($dimension-padding);
 }

@@ -1,5 +1,5 @@
 .rnf-header {
-  background-color: #222;
+  background-color: $colour-grey-darkest;
 
   &__logo {
     display: inline-block;
@@ -9,5 +9,15 @@
     text-decoration: none;
     letter-spacing: .2em;
     font-weight: bold;
+
+    &:hover {
+      color: white;
+    }
+
+    &:focus,
+    &:active {
+      color: $colour-theme-teal;
+      background-color: transparent;
+    }
   }
 }

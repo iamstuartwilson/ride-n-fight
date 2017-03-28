@@ -12,6 +12,28 @@ h2,
 h3,
 h4,
 p,
-ul {
+ul,
+hr {
   margin: 1rem 0;
+}
+
+hr {
+  border: 0;
+  background: none;
+  border-top: solid $colour-grey-lightest 1px;
+}
+
+a {
+  color: $colour-theme-teal;
+  text-decoration: underline;
+
+  &:hover {
+    color: $colour-theme-teal-dark;
+  }
+
+  &:focus,
+  &:active {
+    color: white;
+    background-color: $colour-theme-teal-dark;
+  }
 }

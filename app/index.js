@@ -9,8 +9,7 @@ import {
 
 // Pages
 import User from './templates/routes/user';
-
-const Fight = ({match}) => <div>Fighting: {match.params.id} / {match.params.fid}</div>
+import Fight from './templates/routes/fight';
 
 ReactDOM.render(
   <Router>
